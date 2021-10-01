@@ -14,16 +14,15 @@ public class Main {
 		try {
 			//SQLite JDBC 체크
 			Class.forName("org.sqlite.JDBC");
-			
 			//데이터 베이스와 연결
-			String dbFile = "myFirst.db";
+			String dbFile = "myfirst.db";
 			con = DriverManager.getConnection("jdbc:sqlite:" + dbFile);
 			
 			while(true) {
 				Scanner sc = new Scanner(System.in);
 				
 				System.out.println("원하는 항목 번호를 입력하세요");
-				System.out.println("1. 데이터 추가\n2. 데이터 수정\n3. 데이터 삭제\n4. 데이터 조회");
+				System.out.println("1. 데이터 추가\n2. 데이터 수정\n3. 데이터 삭제\n4. 데이터 조회\n5. 종료");
 				System.out.print("\nCommend > " );
 				int choice = sc.nextInt();
 				
@@ -52,6 +51,7 @@ public class Main {
 						System.out.println("[Error] 데이터 추가 오류!");
 					stat2.close();
 				} 
+				// 2. 데이터 수정
 				else if(choice == 2 ) {
 					System.out.println("\n**** 2. 데이터 수정 ****");
 					Statement stat3 = con.createStatement();
@@ -75,6 +75,7 @@ public class Main {
 						System.out.println("[Error] 데이터 수정 오류!");
 					stat3.close();
 				} 
+				//3. 데이터 삭제
 				else if(choice == 3) {
 					System.out.println("\n**** 3. 데이터 삭제 ****");
 					Statement stat4 = con.createStatement();
@@ -91,8 +92,9 @@ public class Main {
 						System.out.println("[Error] 데이터 삭제 오류!");
 					stat4.close();
 				}
+				//4. 데이터 조회
 				else if(choice == 4) {
-					//데이터 조회
+					
 					System.out.println("\n**** 데이터 조회 ****");
 					Statement stat1 = con.createStatement();
 					String sql1 = "select * from g_artists";
@@ -110,8 +112,9 @@ public class Main {
 					System.out.println();
 					stat1.close();
 				}
-				else {
+				else{
 					System.out.println("종료!");
+					con.close();
 					break;
 				}
 			}
